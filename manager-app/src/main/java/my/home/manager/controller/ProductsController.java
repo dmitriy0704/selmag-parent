@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import my.home.manager.controller.payload.NewProductPayload;
 import my.home.manager.entity.Product;
 import my.home.manager.service.ProductService;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,12 +21,10 @@ public class ProductsController {
         return "catalogue/products/list";
     }
 
-
     @GetMapping("create")
     public String getNewProductPage() {
         return "catalogue/products/new_product";
     }
-
 
     @PostMapping("create")
     public String createProduct(NewProductPayload productPayload) {

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товар &ndash; Сельмаг</title>
+</head>
+<body>
+<h1>Редактирование товара</h1>
+<a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}">&larr;
+    К товару</a>
+<div
+        style="display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center"
+>
+    <form method="post" data-th-action="@{/catalogue/products/{productId}/edit(productId=${product.id})}">
+        <label>
+            Название: <br>
+            <input type="text" name="title">
+        </label>
+        <br>
+        <label>
+            Описание: <br>
+            <textarea name="details"></textarea>
+        </label>
+        <br>
+        <button type="submit">Создать</button>
+    </form>
+</div>
+</body>
+</html>
