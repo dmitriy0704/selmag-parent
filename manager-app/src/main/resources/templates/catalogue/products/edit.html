@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Редактирование товара</h1>
-<a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}">&larr;
+<a data-th-href="@{/templates/catalogue/products/{productId}(productId=${product.id})}">&larr;
     К товару</a>
 <div
         style="display: flex;
@@ -15,18 +15,20 @@
         justify-content: center;
         align-items: center"
 >
-    <form method="post" data-th-action="@{/catalogue/products/{productId}/edit(productId=${product.id})}">
+    <form method="post"
+          data-th-action="@{/templates/catalogue/products/{productId}/edit(productId=${product.id})}">
         <label>
             Название: <br>
-            <input type="text" name="title">
+            <input type="text" name="title" data-th-value="${product.title}">
         </label>
         <br>
         <label>
             Описание: <br>
-            <textarea name="details"></textarea>
+            <textarea name="details" data-th-text="${product.details}"
+            ></textarea>
         </label>
         <br>
-        <button type="submit">Создать</button>
+        <button type="submit">Изменить</button>
     </form>
 </div>
 </body>

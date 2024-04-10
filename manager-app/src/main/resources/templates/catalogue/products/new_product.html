@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Новый товар</h1>
-<a data-th-href="@{/catalogue/products/list}">&larr; К списку товаров</a>
+<a data-th-href="@{/templates/catalogue/products/list}">&larr; К списку товаров</a>
 <div
         style="display: flex;
         width: 100%;
@@ -14,7 +14,7 @@
         justify-content: center;
         align-items: center"
 >
-    <form method="post" data-th-action="@{/catalogue/products/create}">
+    <form method="post" data-th-action="@{/templates/catalogue/products/create}">
         <label>
             Название: <br>
             <input type="text" name="title">

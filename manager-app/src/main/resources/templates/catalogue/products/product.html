@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 data-th-text="${product.title}"></h1>
-<a data-th-href="@{/catalogue/products/list}">&larr; К списку товаров</a>
+<a data-th-href="@{/templates/catalogue/products/list}">&larr; К списку товаров</a>
 <div style="display: flex;
         width: 100%;
         flex-direction: column;
@@ -14,10 +14,18 @@
         align-items: center">
     <ul>
         <li><strong>ID</strong>: <span data-th-text="${product.id}"></span></li>
-        <li><strong>Название</strong>: <span data-th-text="${product.title}"></span></li>
-        <li><strong>Описание</strong>: <span data-th-text="${product.details}"></span></li>
-
+        <li><strong>Название</strong>: <span
+                data-th-text="${product.title}"></span></li>
+        <li><strong>Описание</strong>: <span
+                data-th-text="${product.details}"></span></li>
     </ul>
+    <a data-th-href="@{/templates/catalogue/products/{productId}/edit(productId=${product.id})}">Изменить</a>
+    <form method="post"
+          data-th-action="@{/templates/catalogue/products/{productId}/delete(productId=${product.id})}">
+
+        <br>
+        <button type="submit">Удалить</button>
+    </form>
 </div>
 </body>
 </html>

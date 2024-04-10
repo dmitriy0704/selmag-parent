@@ -1,23 +1,33 @@
 package my.home.manager.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import my.home.manager.controller.payload.NewProductPayload;
 import my.home.manager.controller.payload.UpdateProductPayload;
 import my.home.manager.entity.Product;
 import my.home.manager.service.ProductService;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/productId")
+@RequestMapping("catalogue/products/{productId:\\d+}")
 public class ProductController {
     private final ProductService productService;
+    private final MessageSource messageSource;
+
 
     @ModelAttribute("product")
     public Product product(@PathVariable("productId") int productId) {
-        return this.productService.findProduct(productId).orElseThrow();
+        return this.productService.findProduct(productId)
+                .orElseThrow(
+                        () -> new NoSuchElementException("catalogue.errors.product.not_found")
+                );
     }
 
     @GetMapping()
@@ -34,5 +44,22 @@ public class ProductController {
     public String updateProduct(@ModelAttribute("product") Product product, UpdateProductPayload payload) {
         this.productService.updateProduct(product.getId(), payload.title(), payload.details());
         return "redirect:catalogue/products/%d".formatted(product.getId());
+    }
+
+    @PostMapping("/delete")
+    public String deleteProduct(@ModelAttribute("product") Product product) {
+        this.productService.deleteProduct(product.getId());
+        return "redirect:/catalogue/products/list";
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException(
+            NoSuchElementException e,
+            Model model,
+            HttpServletResponse response
+    ) {
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        model.addAttribute("error", e.getMessage());
+        return "errors/404";
     }
 }
