@@ -7,8 +7,7 @@
 <body>
 <h1>Список товаров</h1>
 <div>
-    <a data-th-href="@{/templates/catalogue/products/create}">&rarr; Создать товар </a>
-
+    <a data-th-href="@{/catalogue/products/create}">&rarr; Создать товар </a>
 </div>
 <div>
     <table>
@@ -22,7 +21,7 @@
             <tr data-th-each="product : ${products }">
                 <td data-th-text="${product.id}"></td>
                 <td>
-                    <a data-th-href="@{/templates/catalogue/products/{productId}(productId=${product.id})}"
+                    <a data-th-href="@{/catalogue/products/{productId}(productId=${product.id})}"
                        data-th-text="${product.title}"
                     ></a>
                 </td>

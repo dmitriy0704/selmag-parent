@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ничего не нашлось в сельмаге</title>
+    <title data-th-text="#{'errors.404.title'}"></title>
 </head>
 <body>
-<h1>Ничего не нашлось</h1>
-<h2>Ошибка 404</h2>
+<h1 data-th-text="#{'errors.404.header'}"></h1>
 <p data-th-text="${error}"></p>
 </body>
 </html>
