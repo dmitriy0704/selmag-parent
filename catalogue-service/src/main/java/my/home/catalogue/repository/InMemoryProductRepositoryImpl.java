@@ -1,10 +1,9 @@
-package my.home.manager.repository;
+package my.home.catalogue.repository;
 
-import my.home.manager.entity.Product;
+import my.home.catalogue.entity.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 @Repository
 public class InMemoryProductRepositoryImpl implements ProductRepository {

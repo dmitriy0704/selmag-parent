@@ -1,8 +1,8 @@
-package my.home.manager.service;
+package my.home.catalogue.service;
 
 import lombok.RequiredArgsConstructor;
-import my.home.manager.entity.Product;
-import my.home.manager.repository.ProductRepository;
+import my.home.catalogue.entity.Product;
+import my.home.catalogue.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package my.home.manager.service;
+package my.home.catalogue.service;
 
-import my.home.manager.entity.Product;
+import my.home.catalogue.entity.Product;
 
 import java.util.List;
 import java.util.Optional;
