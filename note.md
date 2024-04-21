@@ -3,3 +3,4 @@
 * URIComponentBuilder
 * RestController
 * flyway (миграции бд)
+* oauth

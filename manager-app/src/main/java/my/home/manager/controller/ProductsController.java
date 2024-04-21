@@ -5,12 +5,15 @@ import my.home.manager.client.BadRequestException;
 import my.home.manager.client.ProductsRestClient;
 import my.home.manager.controller.payload.NewProductPayload;
 import my.home.manager.entity.Product;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,7 +24,8 @@ public class ProductsController {
     @GetMapping("list")
     public String getProductsList(
             Model model,
-            @RequestParam(name = "filter", required = false) String filter) {
+            @RequestParam(name = "filter", required = false) String filter
+    ) {
         model.addAttribute("products", this.productsRestClient.findAllProducts(filter));
         model.addAttribute("filter", filter);
         return "catalogue/products/list";
