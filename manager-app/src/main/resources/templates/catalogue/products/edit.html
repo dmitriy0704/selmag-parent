@@ -19,12 +19,14 @@
           data-th-action="@{/catalogue/products/{productId}/edit(productId=${product.id})}">
         <label>
             Название: <br>
-            <input type="text" name="title" data-th-value="${payload != null ? payload.title : product.title}">
+            <input type="text" name="title"
+                   data-th-value="${payload != null ? payload.title : product.title}">
         </label>
         <br>
         <label>
             Описание: <br>
-            <textarea name="details" data-th-text="${payload != null ? payload.details : product.details}"
+            <textarea name="details"
+                      data-th-text="${payload != null ? payload.details : product.details}"
             ></textarea>
         </label>
         <br>

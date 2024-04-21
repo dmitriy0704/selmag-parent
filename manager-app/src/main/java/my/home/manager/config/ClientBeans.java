@@ -1,6 +1,5 @@
 package my.home.manager.config;
 
-import jakarta.validation.Valid;
 import my.home.manager.client.RestClientProductsRestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

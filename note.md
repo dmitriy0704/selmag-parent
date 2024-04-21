@@ -2,3 +2,4 @@
 
 * URIComponentBuilder
 * RestController
+* flyway (миграции бд)
