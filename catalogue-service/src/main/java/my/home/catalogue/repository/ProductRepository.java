@@ -13,7 +13,7 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 
 //    @Query(value = "select p from Product p where p.title ilike :filter") //JPQL запрос
 //    @Query(value = "select * from catalogue.t_product where c_title ilike :filter", nativeQuery = true) //SQL запрос
-    @Query(name = "Product.findAllByTitleLikeIgnoringCase") //именнованый запрос
-    Iterable<Product> findAllByTitleLikeIgnoreCase(@Param("filter") String filter);
+//    @Query(name = "Product.findAllByTitleLikeIgnoringCase") //именнованый запрос
 
+    Iterable<Product> findAllByTitleLikeIgnoreCase(@Param("filter") String filter);
 }
