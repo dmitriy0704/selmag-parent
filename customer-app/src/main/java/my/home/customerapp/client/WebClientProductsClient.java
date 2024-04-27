@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import my.home.customerapp.entity.Product;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 
 @RequiredArgsConstructor
@@ -18,5 +19,13 @@ public class WebClientProductsClient implements ProductsClient {
                 .uri("/catalogue-api/products?filter={filter}", filter)
                 .retrieve()
                 .bodyToFlux(Product.class);
+    }
+
+    @Override
+    public Mono<Product> findProducts(int id) {
+        return this.webClient.get()
+                .uri("catalogue-api/products/{productId}", id)
+                .retrieve()
+                .bodyToMono(Product.class);
     }
 }
