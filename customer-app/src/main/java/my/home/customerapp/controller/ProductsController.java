@@ -2,6 +2,8 @@ package my.home.customerapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import my.home.customerapp.client.ProductsClient;
+import my.home.customerapp.entity.FavouriteProduct;
+import my.home.customerapp.service.FavouriteProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import reactor.core.publisher.Mono;
 public class ProductsController {
 
     private final ProductsClient productsClient;
+    private final FavouriteProductService favouriteProductService;
 
     @GetMapping("list")
     public Mono<String> getProductsListPage(Model model,
@@ -24,5 +27,19 @@ public class ProductsController {
                 .collectList()
                 .doOnNext(products -> model.addAttribute("products", products))
                 .thenReturn("customer/products/list");
+    }
+
+
+    @GetMapping("favourites")
+    public Mono<String> getFavouriteProductsPage(Model model, @RequestParam(name = "filter", required = false) String filter) {
+        model.addAttribute("filter", filter);
+        return this.favouriteProductService.findFavouriteProducts()
+                .map(FavouriteProduct::getProductId)
+                .collectList()
+                .flatMap(favouriteProducts -> this.productsClient.findAllProducts(filter)
+                        .filter(product -> favouriteProducts.contains(product.id()))
+                        .collectList()
+                        .doOnNext(products -> model.addAttribute("products", products)))
+                .thenReturn("customer/products/favourites");
     }
 }
