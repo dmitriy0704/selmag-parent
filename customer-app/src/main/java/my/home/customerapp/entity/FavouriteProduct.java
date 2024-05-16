@@ -1,16 +1,7 @@
 package my.home.customerapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class FavouriteProduct {
+public record FavouriteProduct(UUID id, int productId) {
 
-    private UUID id;
-    private int productId;
 }

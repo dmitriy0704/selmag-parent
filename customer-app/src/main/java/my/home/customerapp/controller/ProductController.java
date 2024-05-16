@@ -1,17 +1,15 @@
 package my.home.customerapp.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import my.home.customerapp.client.FavouriteProductsClient;
+import my.home.customerapp.client.ProductReviewsClient;
 import my.home.customerapp.client.ProductsClient;
-import my.home.customerapp.controller.payload.NewProductReviewPayload;
+import my.home.customerapp.client.payload.NewProductReviewPayload;
 import my.home.customerapp.entity.Product;
-import my.home.customerapp.service.FavouriteProductService;
-import my.home.customerapp.service.ProductReviewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -23,8 +21,8 @@ import java.util.NoSuchElementException;
 public class ProductController {
 
     private final ProductsClient productsClient;
-    private final FavouriteProductService favouriteProductService;
-    private final ProductReviewsService productReviewsService;
+    private final FavouriteProductsClient favouriteProductsClient;
+    private final ProductReviewsClient productReviewsClient;
 
     @ModelAttribute(name = "product", binding = false)
     public Mono<Product> loadProduct(@PathVariable("productId") int id) {
@@ -35,10 +33,10 @@ public class ProductController {
     @GetMapping
     public Mono<String> getProductPage(@PathVariable("productId") int id, Model model) {
         model.addAttribute("inFavourite", false);
-        return this.productReviewsService.findProductReviewsByProduct(id)
+        return this.productReviewsClient.findProductReviewsByProductId(id)
                 .collectList()
                 .doOnNext(productReviews -> model.addAttribute("reviews", productReviews))
-                .then(this.favouriteProductService.findFavouriteProductByProduct(id)
+                .then(this.favouriteProductsClient.findFavouriteProductByProductId(id)
                         .doOnNext(favouriteProduct -> model.addAttribute("inFavourite", true)))
                 .thenReturn("customer/products/product");
     }
@@ -48,7 +46,7 @@ public class ProductController {
         return productMono
                 .map(Product::id)
                 .flatMap(productId ->
-                        this.favouriteProductService.addProductToFavourite(productId)
+                        this.favouriteProductsClient.addProductToFavourite(productId)
                                 .thenReturn("redirect:/customer/products/%d".formatted(productId)));
     }
 
@@ -57,14 +55,14 @@ public class ProductController {
         return productMono
                 .map(Product::id)
                 .flatMap(productId ->
-                        this.favouriteProductService.removeProductFromFavourite(productId)
+                        this.favouriteProductsClient.removeProductFromFavourite(productId)
                                 .thenReturn("redirect:/customer/products/%d".formatted(productId)));
     }
 
     @PostMapping("create-review")
     public Mono<String> createReview(
             @PathVariable("productId") int id,
-            @Valid NewProductReviewPayload payload,
+            NewProductReviewPayload payload,
             BindingResult bindingResult,
             Model model
     ) {
@@ -75,11 +73,11 @@ public class ProductController {
                     .stream().map(ObjectError::getDefaultMessage)
                     .toList()
             );
-            return this.favouriteProductService.findFavouriteProductByProduct(id)
+            return this.favouriteProductsClient.findFavouriteProductByProduct(id)
                     .doOnNext(favouriteProduct -> model.addAttribute("inFavourite", true))
                     .thenReturn("customer/products/product");
         } else {
-            return this.productReviewsService.createProductReview(id, payload.rating(), payload.review())
+            return this.productReviewsClient.createProductReview(id, payload.rating(), payload.review())
                     .thenReturn("redirect:/customer/products/%d".formatted(id));
         }
     }

@@ -1,6 +1,6 @@
-package my.home.customerapp.repo;
+package my.home.feedback.repo;
 
-import my.home.customerapp.entity.ProductReview;
+import my.home.feedback.entity.ProductReview;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

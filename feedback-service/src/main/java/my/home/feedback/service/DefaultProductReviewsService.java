@@ -1,8 +1,8 @@
-package my.home.customerapp.service;
+package my.home.feedback.service;
 
 import lombok.RequiredArgsConstructor;
-import my.home.customerapp.entity.ProductReview;
-import my.home.customerapp.repo.ProductReviewRepository;
+import my.home.feedback.entity.ProductReview;
+import my.home.feedback.repo.ProductReviewRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
