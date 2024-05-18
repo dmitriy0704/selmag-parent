@@ -5,7 +5,7 @@ import my.home.feedback.entity.FavouriteProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface FavouriteProductService{
+public interface FavouriteProductsService {
     Mono<FavouriteProduct> addProductToFavourite(int productId);
 
     Mono<Void> removeProductFromFavourite(int productId);

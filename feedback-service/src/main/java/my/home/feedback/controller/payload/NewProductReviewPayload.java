@@ -15,7 +15,7 @@ public record NewProductReviewPayload(
         Integer rating,
 
         @Size(max = 100, message = "{feedback.products.reviews.create.rating.errors.review_is_too_big}")
-        String review
+        String reviews
 
 ){
 

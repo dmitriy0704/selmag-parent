@@ -13,13 +13,12 @@ import reactor.core.publisher.Mono;
 @ControllerAdvice
 public class ExceptionHandlingControllerAdvice {
 
-
     @ExceptionHandler(WebExchangeBindException.class)
-    public Mono<ResponseEntity<ProblemDetail>> handleWebExchangeBindException(WebExchangeBindException ex) {
+    public Mono<ResponseEntity<ProblemDetail>> handleWebExchangeBindException(WebExchangeBindException exception) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
-        problemDetail
-                .setProperty("message", ex.getAllErrors().stream()
-                        .map(ObjectError::getDefaultMessage).toList());
+        problemDetail.setProperty("errors", exception.getAllErrors().stream()
+                .map(ObjectError::getDefaultMessage)
+                .toList());
         return Mono.just(ResponseEntity.badRequest()
                 .contentType(MediaType.APPLICATION_PROBLEM_JSON)
                 .body(problemDetail)

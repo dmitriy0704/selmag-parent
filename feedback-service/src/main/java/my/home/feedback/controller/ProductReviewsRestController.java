@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("feedback-api/product-reviews")
 @RequiredArgsConstructor
 public class ProductReviewsRestController {
+
     private final ProductReviewsService productReviewsService;
 
     @GetMapping("by-product-id/{productId:\\d+}")
@@ -27,12 +28,10 @@ public class ProductReviewsRestController {
             @Valid @RequestBody Mono<NewProductReviewPayload> payloadMono,
             UriComponentsBuilder componentsBuilder) {
         return payloadMono
-                .flatMap(payload -> this.productReviewsService.createProductReview(payload.productId(), payload.rating(), payload.reviews()))
-                .map(productReview -> ResponseEntity
-                        .created(componentsBuilder.replacePath("/feedback-api/product-reviews/{id}")
+                .flatMap(payload -> this.productReviewsService.createProductReview(payload.productId(),
+                        payload.rating(), payload.reviews()))
+                .map(productReview -> ResponseEntity.created(componentsBuilder.replacePath("/feedback-api/product-reviews/{id}")
                                 .build(productReview.getId()))
                         .body(productReview));
     }
-
-
 }

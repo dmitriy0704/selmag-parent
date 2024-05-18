@@ -12,5 +12,7 @@ public interface FavouriteProductsClient {
 
     Mono<FavouriteProduct> addProductToFavourite(int productId);
 
-    Mono<Void> removeProductFromFavourite(int productId);
+    Mono<Void> removeProductFromFavourites(int productId);
+
+
 }

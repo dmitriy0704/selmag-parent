@@ -1,4 +1,7 @@
 package my.home.customerapp.controller.payload;
 
-public record NewProductReviewPayload(Integer rating, String review) {
+public record NewProductReviewPayload(
+        Integer productId,
+        Integer rating,
+        String review) {
 }
