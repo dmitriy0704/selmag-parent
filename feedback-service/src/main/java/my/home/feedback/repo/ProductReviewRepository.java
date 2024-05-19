@@ -1,11 +1,13 @@
 package my.home.feedback.repo;
 
 import my.home.feedback.entity.ProductReview;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 
-public interface ProductReviewRepository {
-    Mono<ProductReview> save(ProductReview productReview);
+public interface ProductReviewRepository extends ReactiveCrudRepository<ProductReview, UUID> {
+
     Flux<ProductReview> findAllByProductId(int productId);
 }

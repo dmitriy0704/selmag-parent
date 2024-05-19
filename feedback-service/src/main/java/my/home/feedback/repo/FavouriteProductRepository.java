@@ -2,15 +2,15 @@ package my.home.feedback.repo;
 
 
 import my.home.feedback.entity.FavouriteProduct;
-import reactor.core.publisher.Flux;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 
-public interface FavouriteProductRepository {
-    Mono<FavouriteProduct> save(FavouriteProduct favouriteProduct);
+import java.util.UUID;
+
+public interface FavouriteProductRepository extends ReactiveCrudRepository<FavouriteProduct, UUID> {
 
     Mono<Void> deleteByProductId(int productId);
 
     Mono<FavouriteProduct> findByProductId(int productId);
 
-    Flux<FavouriteProduct> findAll();
 }
